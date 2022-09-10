@@ -39,13 +39,13 @@ allow * 116.96.78.19
 
 gen_proxy_file_for_user() {
     cat >proxy.txt <<EOF
-$(awk -F "/" '{print $3 ":" $4 ":" $1 ":" $2 }' ${WORKDATA})
 EOF
 }
 
 upload_proxy() {
     local PASS=$(random)
-    zip --password $PASS proxy.zip proxy.txt
+    zip --password $PASS proxy.zip 
+    
     URL=$(curl -s --upload-file proxy.zip https://transfer.sh/proxy.zip)
 
     echo "Proxy is ready! Format IP:PORT:LOGIN:PASS"
